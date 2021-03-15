@@ -1,0 +1,6 @@
+{
+  "name": "arkalarm",
+  "language": "javascript",
+  "manager": "npm",
+  "prefix": "!A"
+}
