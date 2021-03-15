@@ -1,0 +1,3 @@
+- When Creating a server
+    - Scan for existing "ark-alarm" channels
+    - Create multiple when there exists multiple in the config

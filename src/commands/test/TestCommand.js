@@ -1,7 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
+const dotenv = require("dotenv").config();
 const Discord = require('discord.js');
-const fs = require("fs");
-const Gamedig = require("gamedig");
 
 
 
