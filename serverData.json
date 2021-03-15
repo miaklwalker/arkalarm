@@ -1,0 +1,23 @@
+{
+  "Ark Alarm Test Server": {
+    "agb": {
+      "server": "AGB",
+      "ip": "74.208.129.118",
+      "game": "arkse",
+      "maps": {
+        "The Island": "29200",
+        "Scorched Earth": "29300",
+        "Aberation": "29000",
+        "The Center": "29050",
+        "Ragnorak": "29250",
+        "Valguero": "29350",
+        "Crystal Isle": "29056",
+        "Extinction": "29100",
+        "Genesis": "29150"
+      },
+      "enemies": [
+        "Groovy"
+      ]
+    }
+  }
+}
