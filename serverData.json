@@ -22,6 +22,36 @@
         "Vex",
         "Haze5500"
       ]
+    },
+    "bg": {
+      "server": "Bearded Gamer",
+      "ip": "24.128.67.254",
+      "game": "arkse",
+      "maps": {
+        "The Island": "27019",
+        "Scorched Earth": "",
+        "Aberation": "27023",
+        "The Center": "27017",
+        "Ragnorak": "27015",
+        "Valguero": "27021",
+        "Crystal Isle": "27033",
+        "Extinction": "27025",
+        "Genesis": "27029"
+      },
+      "enemies": [
+        "123",
+        "red",
+        "JackTheRipper",
+        "GETRED",
+        "Miso",
+        "TooMufasa",
+        "Yogi",
+        "dOEbOY",
+        "Bam Bam",
+        "phuck yu",
+        "Winter",
+        "NATHON!"
+      ]
     }
   }
 }
