@@ -19,11 +19,7 @@ let configTemplate = `{
     },
     "homebase": "",
     "enemies": [],
-    "tribe": {
-      "name": "",
-      "mainmap": "",
-      "members": []
-    }
+     tribemates:[],
   }
 }`;
 //todo if the server already has ark-alarm channels dont delete.
@@ -68,13 +64,19 @@ async function createConfig(message){
   When you are finished filling out the form use the ** !A config **  
   command again to set up your bot!`);
 }
+const clusterName = (config) => (`ark-alarm-${config
+    .replace(/ /g, '-')
+    .toLowerCase()
+}`);
 
-const clusterName = (config) => (
-    `ark-alarm-${config                          
-        .replace(/ /g, '-')
-        .toLowerCase()
-    }`
-);
+function createChannelsFromConfig(message,config) {
+  Object.keys(config).forEach(name => {
+    if (name) {
+      createChannel(message, clusterName(name), "text")
+    }
+  });
+}
+
 
 
 module.exports = class SetupCommand extends BaseCommand {
@@ -82,7 +84,7 @@ module.exports = class SetupCommand extends BaseCommand {
     super('setup', 'setup', []);
   }
 
-  async run(client, message, args) {
+  async run(client, message) {
     // Gets and reads the server data json file
     fs.readFile(
         "./serverData.json",
@@ -94,11 +96,7 @@ module.exports = class SetupCommand extends BaseCommand {
             let config = await fetchConfig(client);
             if(config){
             // If they are editing the current config file
-              Object.keys(config).forEach(name=>{
-                if(name){
-                  createChannel(message,clusterName(name),"text")
-                }
-              });
+              createChannelsFromConfig(message,config);
               serverData[message.guild.name] = config;
               fs.writeFile(
                 "./serverData.json",
@@ -126,8 +124,7 @@ module.exports = class SetupCommand extends BaseCommand {
             // If this is first time setup
             let config = await fetchConfig(client);
             if(config){
-              let serverName = message.guild.name;
-              createChannel(message,clusterName(config),"text");
+              createChannelsFromConfig(message,config);
               serverData[message.guild.name] = config;
               fs.writeFile(
                   "./serverData.json",

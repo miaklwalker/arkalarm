@@ -29,7 +29,6 @@
       "game": "arkse",
       "maps": {
         "The Island": "27019",
-        "Scorched Earth": "",
         "Aberation": "27023",
         "The Center": "27017",
         "Ragnorak": "27015",
@@ -51,6 +50,10 @@
         "phuck yu",
         "Winter",
         "NATHON!"
+      ],
+      "tribemates": [
+        "Vex",
+        "Haze5500"
       ]
     }
   }
