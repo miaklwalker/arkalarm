@@ -23,7 +23,6 @@ let configTemplate = `{
   }
 }`;
 
-//todo delete ark alarms that no longer have configs
 
 function findChannelByName(name,client){
   // Gets all of the channels from Discord Server
@@ -83,13 +82,10 @@ function createChannelsFromConfig(message,config,client) {
   });
 }
 
-
-
 module.exports = class SetupCommand extends BaseCommand {
   constructor() {
     super('setup', 'setup', []);
   }
-
   async run(client, message) {
     // Gets and reads the server data json file
     fs.readFile(
