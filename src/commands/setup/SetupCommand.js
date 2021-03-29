@@ -25,18 +25,19 @@ let configTemplate = `{
 
 
 function findChannelByName(name,client){
-  // Gets all of the channels from Discord Server
-  let values = Object.values(client.channels);
-  // Verifies That we have correctly gathered the channels
-  let channels = values[1] instanceof values[0] && values[1];
-  let target;
-  // Goes through each channel and finds the config channel
-  channels.forEach(channel=>{
-    if(channel.name === name){
-      target = channel;
+    // Gets all of the channels from Discord Server
+    let target;
+    // Goes through each channel and finds the config channel
+    if(client?.channels?.cache instanceof Map ) {
+        client.channels.cache.forEach(channel => {
+            if (channel.name === name) {
+                target = channel;
+            }
+        });
     }
-  });
-  return target;
+    if(target) {
+        return target;
+    }
 }
 
 async function fetchConfig(client){

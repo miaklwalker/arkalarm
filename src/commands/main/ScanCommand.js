@@ -47,7 +47,6 @@ function filterPlayers(cluster){
       };
       serverInfo.push(serverData);
   }
-  console.log(serverInfo);
   return serverInfo
 }
 function createCluster(message){
@@ -74,9 +73,7 @@ async function getClusterInfo(message){
       let serverOutput = {name, map, numplayers, players};
       clusterInfo.push(serverOutput);
 
-    } catch (err) {
-      console.log(err)
-    }
+    } catch (err) {return}
   }
   cluster.clusterInfo = clusterInfo;
   return cluster;

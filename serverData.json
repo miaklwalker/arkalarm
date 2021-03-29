@@ -13,7 +13,10 @@
         "Valguero": "29350",
         "Crystal Isle": "29056",
         "Extinction": "29100",
-        "Genesis": "29150"
+        "Genesis": "29150",
+        "Fjorder": "29360",
+        "Fjordor pvp": "29260",
+        "valhalla": "29160"
       },
       "enemies": [
         "Groovy"
