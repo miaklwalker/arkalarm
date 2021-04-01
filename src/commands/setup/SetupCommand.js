@@ -60,13 +60,13 @@ function createChannel(message,name){
   return message.guild.channels.create(name, {type:"text"})
 }
 
-async function createConfig(message){
+async function createConfig(message,config=configTemplate){
   let channel = await createChannel(message,"config","text");
-  channel.send(configTemplate);
+  channel.send(config);
 
   channel.send(`
   Copy and Paste The above template, 
-  When you are finished filling out the form use the ** !A config **  
+  When you are finished filling out the form use the ** !A setup **  
   command again to set up your bot!`);
 }
 
@@ -74,6 +74,51 @@ const clusterName = (config) => (`ark-alarm-${config
     .replace(/ /g, '-')
     .toLowerCase()
 }`);
+
+class Result{
+    constructor(reply,data){
+        this.reply = reply;
+        this.data = data;
+    }
+}
+
+function parseLogic (client,message,option) {
+
+    async function configEdit (serverData,config){
+        createChannelsFromConfig(message,config,client);
+        serverData[message.guild.name] = config;
+        return new Result(true,serverData);
+    }
+    async function configGet (serverData){
+        await createConfig(message, JSON.stringify(serverData[message.guild.name],null,2))
+        return new Result(false,{});
+    }
+    async function configSave(){
+        try{
+            await createConfig(message)
+            return new Result(false,{})
+        }
+        catch(err){
+
+            console.log(err)
+        }
+    }
+    async function configCreate(serverData,config){
+        createChannelsFromConfig(message,config);
+        serverData[message.guild.name] = config;
+        return new Result(true,serverData)
+    }
+
+    let options = {
+        configEdit,
+        configGet,
+        configSave,
+        configCreate
+    }
+
+    return options[option]
+
+}
 
 function createChannelsFromConfig(message,config,client) {
   Object.keys(config).forEach(name => {
@@ -87,62 +132,38 @@ module.exports = class SetupCommand extends BaseCommand {
   constructor() {
     super('setup', 'setup', []);
   }
-  async run(client, message) {
-    // Gets and reads the server data json file
-    fs.readFile(
-        "./serverData.json",
-        async (err,data) =>{
+  async run (client,message){
+      // Get serverData.json
+      fs.readFile("./serverData.json",async (err,data)=>{
           if(err)throw err;
+          // Parse and save the serverData;
           let serverData = JSON.parse(data);
-          let hasConfigFile = serverData?.[message.guild.name];
-          if(hasConfigFile){
-            // If the discord server already has a config file
-            // We fetch that file
-            let config = await fetchConfig(client);
-            if(config){
-            // If they are editing the current config file
-              createChannelsFromConfig(message,config,client);
-              serverData[message.guild.name] = config;
-              fs.writeFile(
-                "./serverData.json",
-                JSON.stringify(serverData,null,2)),
-                  console.log
-          }
-            else{
-            // If they are wanting to edit the current config file
-            let configChannel = await createChannel(
-                message,
-                "config",
-                "text"
-            );
-            configChannel.send(
-              JSON.stringify(serverData[message.guild.name])
-            );
-            configChannel.send(`
-            Copy and Paste The above template, 
-            When you are finished making your changes use the ** !A config **  
-            command again to set up your bot!`);
-          }
+
+          let hasConfigFlag ,config, option;
+          hasConfigFlag = serverData?.[message.guild.name];
+          config = await fetchConfig(client);
+
+          if(hasConfigFlag){
+              if(config){
+                  option = "configEdit"
+              }else{
+                  option = "configGet"
+              }
           }
           else{
-            // If this is first time setup
-            let config = await fetchConfig(client);
-            if(config){
-              createChannelsFromConfig(message,config);
-              serverData[message.guild.name] = config;
-              fs.writeFile(
-                  "./serverData.json",
-                  JSON.stringify(serverData,null,2),
-                  console.log
-              )
-        }
-        else{
-          // Saving the data from the first time setup
-          createConfig(message)
-              .then(console.log)
-              .catch(console.error)
-        }
-      }
-    })
+              if(config){
+                  option = "configCreate"
+              }else{
+                  option = "configSave"
+              }
+          }
+
+          let algorithm = parseLogic(client,message,option);
+          let result = await algorithm(serverData,config);
+          if(result?.reply){
+            await fs.writeFile("./serverData.json",JSON.stringify(result["data"],null,2),console.log)
+          }
+      })
   }
+
 };

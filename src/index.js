@@ -11,6 +11,7 @@ const client = new Client();
   client.prefix = config.prefix;
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
-  await client.login(process.env.DISC_TOKEN);
+  let token = process.env.DISC_TOKEN_PROD;
+  await client.login(token);
 })();
 

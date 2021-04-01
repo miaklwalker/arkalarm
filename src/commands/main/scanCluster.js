@@ -27,6 +27,7 @@ class Cluster {
 }
 
 function filterPlayers(cluster){
+
     const {clusterInfo,config:{enemies,tribemates}} = cluster;
     let clusterPlayers = clusterInfo.map(server=>server.players);
     let serverInfo = [];
@@ -42,8 +43,8 @@ function filterPlayers(cluster){
             }),
             rest: players.filter(player => {
                 return (
-                    enemies.map(enemy => enemy !== player).includes(true) &&
-                    tribemates.map(tribemates => tribemates !== player).includes(true))
+                    !enemies.map(enemy => enemy !== player).includes(true) &&
+                    !tribemates.map(tribemates => tribemates !== player).includes(true))
             })
         };
         serverInfo.push(serverData);
@@ -75,11 +76,12 @@ async function getClusterInfo(message,api=Gamedig){
             let serverOutput = {name, map, numplayers, players};
             clusterInfo.push(serverOutput);
 
-        } catch (err) {return}
+        } catch (err) {console.log(err)}
     }
     cluster.clusterInfo = clusterInfo;
     return cluster;
 }
+
 async function scanCluster (client, message){
     let cluster = await getClusterInfo(message);
     let playerData = filterPlayers(cluster);

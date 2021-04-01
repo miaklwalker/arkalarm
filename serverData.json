@@ -59,5 +59,67 @@
         "Haze5500"
       ]
     }
+  },
+  "Ark Unknown-BG": {
+    "bg": {
+      "server": "Bearded Gamer",
+      "ip": "24.128.67.254",
+      "game": "arkse",
+      "maps": {
+        "The Island": "27019",
+        "Aberation": "27023",
+        "The Center": "27017",
+        "Ragnorak": "27015",
+        "Valguero": "27021",
+        "Crystal Isle": "27033",
+        "Extinction": "27025",
+        "Genesis": "27029"
+      },
+      "enemies": [],
+      "tribemates": [
+        "Miso",
+        "TooMufasa"
+      ]
+    }
+  },
+  "The Sassie Gaming Zone": {
+    "beardedgamer": {
+      "ip": "24.128.67.254",
+      "game": "arkse",
+      "maps": {
+        "The Island": "27019",
+        "Scorched Earth": "",
+        "Aberation": "27023",
+        "The Center": "27017",
+        "Ragnorak": "27015",
+        "Valguero": "27021",
+        "Crystal Isle": "27033",
+        "Extinction": "27025",
+        "Genesis": "27029"
+      },
+      "homebase": "",
+      "enemies": [
+        "123",
+        "red",
+        "JackTheRipper",
+        "GETRED",
+        "Miso",
+        "TooMufasa",
+        "Yogi",
+        "dOEbOY",
+        "Bam Bam",
+        "phuck yu",
+        "Winter",
+        "NATHON!"
+      ],
+      "tribemates": [
+        "chizzled",
+        "Vex",
+        "ouisihai",
+        "Sassie Cassie",
+        "Haze5500",
+        "ouisihai"
+      ]
+    }
   }
 }
