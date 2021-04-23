@@ -51,6 +51,7 @@ function filterPlayers(cluster){
     }
     return serverInfo
 }
+
 function createCluster(message,fileSys = fs){
     let guildName,channelName;
     guildName = message.guild.name;
@@ -63,6 +64,7 @@ function createCluster(message,fileSys = fs){
     Object.values(maps).forEach(cluster.addServer);
     return cluster;
 }
+
 async function getClusterInfo(message,api=Gamedig){
     let cluster = createCluster(message);
     let clusterInfo = [];
