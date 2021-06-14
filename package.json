@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "SET NODE_ENV=dev && nodemon ./src/index.js",
+    "dev": "NODE_ENV=dev nodemon ./src/index.js",
     "test": "NODE_ENV=dev npx jest",
-    "start": " SET NODE_ENV=production && node ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js",
     "build": ""
   },
   "keywords": [],
