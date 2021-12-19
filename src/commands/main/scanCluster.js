@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const fs = require("fs");
 const Gamedig = require("gamedig");
 const createCluster = require("../../modules/createCluster.js");
-const filterPlayers = require("../../modules/filterPlayers.js");
+const filterPlayers = require("../../modules/functions/filterPlayer.js");
 
 
 

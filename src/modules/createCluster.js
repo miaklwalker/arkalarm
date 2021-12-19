@@ -1,4 +1,4 @@
-const Cluster = require("./cluster.js");
+const Cluster = require("./Classes/cluster.js");
 const fs = require("fs");
 
 module.exports = function createCluster(message,fileSys = fs){

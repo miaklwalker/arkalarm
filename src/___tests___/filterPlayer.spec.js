@@ -1,4 +1,4 @@
-const filterPlayers = require("../modules/filterPlayers.js")
+const filterPlayers = require("../modules/functions/filterPlayer.js")
 
 describe("Filter Player Spec",()=>{
     // What do i need to test the functionality
