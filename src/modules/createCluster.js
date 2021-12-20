@@ -1,7 +1,8 @@
 const Cluster = require("./Classes/cluster.js");
 const fs = require("fs");
 
-module.exports = function createCluster(message,fileSys = fs){
+
+function createCluster(message,fileSys = fs){
     let guildName,channelName;
     guildName = message.guild.name;
     channelName = message.channel.name;
@@ -12,4 +13,6 @@ module.exports = function createCluster(message,fileSys = fs){
     cluster.config = config;
     Object.values(maps).forEach(cluster.addServer);
     return cluster;
-}
+};
+
+module.exports = createCluster;

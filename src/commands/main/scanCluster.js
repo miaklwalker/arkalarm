@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const fs = require("fs");
 const Gamedig = require("gamedig");
 const createCluster = require("../../modules/createCluster.js");
 const filterPlayers = require("../../modules/functions/filterPlayer.js");
@@ -66,7 +65,6 @@ async function scanCluster (client, message){
 }
 
 module.exports = scanCluster;
-module.exports.createCluster = createCluster;
 module.exports.getClusterInfo = getClusterInfo;
 
 
