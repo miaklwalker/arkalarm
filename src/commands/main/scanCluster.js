@@ -18,7 +18,9 @@ async function getClusterInfo(message,api=Gamedig){
             let serverOutput = {name, map, numplayers, players};
             clusterInfo.push(serverOutput);
 
-        } catch (err) {console.log(err)}
+        } catch (err) {
+            //Allow the bot to continue if the server is offline
+        }
     }
     cluster.clusterInfo = clusterInfo;
     return cluster;

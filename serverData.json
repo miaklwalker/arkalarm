@@ -61,63 +61,26 @@
     }
   },
   "Ark": {
-    "agb": {
-      "server": "AGB",
-      "ip": "74.208.129.118",
+    "arkade": {
+      "server": "Arkade",
+      "ip": "147.135.31.142",
       "game": "arkse",
       "maps": {
-        "The Island": "29200",
-        "Scorched Earth": "29300",
-        "Aberation": "29000",
-        "The Center": "29050",
-        "Ragnorak": "29250",
-        "Valguero": "29350",
-        "Crystal Isle": "29056",
-        "Extinction": "29100",
-        "Genesis": "29150",
-        "Fjorder": "29360",
-        "Fjordor pvp": "29260",
-        "valhalla": "29160"
-      },
-      "enemies": [
-        "Groovy"
-      ],
-      "tribemates": [
-        "Vex",
-        "Haze5500"
-      ]
-    },
-    "bg": {
-      "server": "Bearded Gamer",
-      "ip": "24.128.67.254",
-      "game": "arkse",
-      "maps": {
-        "The Island": "27019",
-        "Aberation": "27023",
-        "The Center": "27017",
+        "The Island": "27022",
+        "Scorched Earth": "27018",
+        "Aberation": "27024",
+        "The Center": "27016",
         "Ragnorak": "27015",
-        "Valguero": "27021",
-        "Crystal Isle": "27033",
-        "Extinction": "27025",
-        "Genesis": "27029"
+        "Valguero": "27019",
+        "Crystal Isle": "27021",
+        "Genesis": "27017",
+        "lostisland": "27023"
       },
-      "enemies": [
-        "123",
-        "red",
-        "JackTheRipper",
-        "GETRED",
-        "Miso",
-        "TooMufasa",
-        "Yogi",
-        "dOEbOY",
-        "Bam Bam",
-        "phuck yu",
-        "Winter",
-        "NATHON!"
-      ],
+      "enemies": [],
       "tribemates": [
         "Vex",
-        "Haze5500"
+        "Haze5500",
+        "itzMud"
       ]
     }
   },
@@ -134,12 +97,15 @@
         "Valguero": "27021",
         "Crystal Isle": "27033",
         "Extinction": "27025",
-        "Genesis": "27029"
+        "Genesis": "27029",
+        "Gen2": "27031"
       },
       "enemies": [],
       "tribemates": [
         "Miso",
-        "TooMufasa"
+        "TooMufasa",
+        "UltraInstinctAzn",
+        "E10"
       ]
     }
   },
