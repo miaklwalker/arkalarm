@@ -1,7 +1,3 @@
-
-
-
-
 const getClusterName = (channelName) => {
     const [,,...rest] = channelName.split("-");
     return rest;
@@ -20,3 +16,12 @@ module.exports.getClusterProperty = (message,serverData,property= undefined) => 
         serverData[message.guild.name][getClusterName(message.channel.name)[0]][property] :
         serverData[message.guild.name][getClusterName(message.channel.name)[0]]
 );
+
+
+// tribe tracker 
+/*
+add enemy tribes
+ add tribe members
+ exclude 123's 
+
+*/
