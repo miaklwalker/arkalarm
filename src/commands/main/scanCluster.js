@@ -62,7 +62,7 @@ async function scanCluster (client, message){
     });
     return embed;
     }catch(err){
-    console.error(err)
+    //console.error(err)
     }
 }
 
