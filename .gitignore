@@ -4,3 +4,4 @@ node_modules
 coverage
 serverdata.json
 useCount.json
+.ds_store
