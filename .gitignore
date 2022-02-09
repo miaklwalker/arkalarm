@@ -5,3 +5,4 @@ coverage
 serverdata.json
 useCount.json
 .ds_store
+.idea

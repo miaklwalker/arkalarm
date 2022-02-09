@@ -15,8 +15,7 @@ async function getClusterInfo(message,api=Gamedig){
             // filter out the random empty player objects
             let players = p.map(obj => obj.name).filter(name => name !== undefined);
 
-            let serverOutput = {name, map, numplayers, players};
-            clusterInfo.push(serverOutput);
+            clusterInfo.push({name, map, numplayers, players});
 
         } catch (err) {
             //Allow the bot to continue if the server is offline

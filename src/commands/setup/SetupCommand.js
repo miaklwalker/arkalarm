@@ -48,7 +48,11 @@ async function fetchConfig(client){
     messages.forEach(message=>{
       let firstLetter = message.content[0];
       if(firstLetter === "{" && !message.author.bot){
-        configMessage = JSON.parse(message.content);
+          try {
+              configMessage = JSON.parse(message.content);
+          }catch (e){
+              client.send("There was a problem with the JSON")
+          }
       }
     });
     config.delete();
