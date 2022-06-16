@@ -1,4 +1,9 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
+const { keys, saved }  = require("../../server");
+const useConfigToMakeArkAlarmChannels = require("../../modules/functions/createChannelsFromConfig");
+const fetchConfigTextChannel = require("../../modules/functions/fetchConfig");
+const createChannel = require("../../modules/functions/createChannel");
+const random = require("another-random-package");
 const fs = require("fs");
 
 let configTemplate = `{
@@ -23,61 +28,58 @@ let configTemplate = `{
   }
 }`;
 
-
-function findChannelByName(name,client){
-    // Gets all of the channels from Discord Server
-    let target;
-    // Goes through each channel and finds the config channel
-    if(client?.channels?.cache instanceof Map ) {
-        client.channels.cache.forEach(channel => {
-            if (channel.name === name) {
-                target = channel;
-            }
-        });
-    }
-    if(target) {
-        return target;
-    }
-}
-
 async function fetchConfig(client){
-  let config = findChannelByName("config",client);
-  if(config){
+  // this function tries to find a text Channel called config
+  let configChannel = await fetchConfigTextChannel(client);
+  if(configChannel){
+    console.log(configChannel);
     let configMessage;
-    let messages =  await config.messages.fetch();
+    let messages =  await configChannel.messages.fetch();
     messages.forEach(message=>{
       let firstLetter = message.content[0];
-      if(firstLetter === "{" && !message.author.bot){
+      if(firstLetter === "{"){
           try {
               configMessage = JSON.parse(message.content);
           }catch (e){
               client.send("There was a problem with the JSON")
           }
-      }
+      } 
+      // if its a bot and the message the last message is json;    
     });
-    config.delete();
+    configChannel.delete();
     return configMessage;
   }
 }
 
-function createChannel(message,name){
-  return message.guild.channels.create(name, {type:"text"})
-}
 
-async function createConfig(message,config=configTemplate){
+
+async function createConfigChannel(message,config=configTemplate,client){
+  if(config === undefined){
+    config = configTemplate;
+  }
   let channel = await createChannel(message,"config","text");
   channel.send(config);
+  const key = {
+    name: message.guild.name,
+    configKey : random.randomStringAlphaNumeric(10),
+  }
+  keys[key.configKey] = {name:key.name};
+  let address = "http://localhost:3000/?"+key.configKey;
+  saved[key.name] = {channel,message,client};
 
   channel.send(`
   Copy and Paste The above template, 
   When you are finished filling out the form use the ** !A setup **  
-  command again to set up your bot!`);
+  command again to set up your bot!
+  
+  You can also use the following link to set up your bot:
+  ${address}
+  once you have done this, you can use the ** !A setup ** to see your new setup!
+  run the ** !A setup ** command again to finish!
+  `);
 }
 
-const clusterName = (config) => (`ark-alarm-${config
-    .replace(/ /g, '-')
-    .toLowerCase()
-}`);
+
 
 class Result{
     constructor(reply,data){
@@ -89,17 +91,17 @@ class Result{
 function parseLogic (client,message,option) {
 
     async function configEdit (serverData,config){
-        createChannelsFromConfig(message,config,client);
+        useConfigToMakeArkAlarmChannels(message,config,client);
         serverData[message.guild.name] = config;
         return new Result(true,serverData);
     }
     async function configGet (serverData){
-        await createConfig(message, JSON.stringify(serverData[message.guild.name],null,2))
+        await createConfigChannel(message, JSON.stringify(serverData[message.guild.name],null,2),client);
         return new Result(false,{});
     }
     async function configSave(){
         try{
-            await createConfig(message)
+            await createConfigChannel(message,undefined,client);
             return new Result(false,{})
         }
         catch(err){
@@ -108,7 +110,7 @@ function parseLogic (client,message,option) {
         }
     }
     async function configCreate(serverData,config){
-        createChannelsFromConfig(message,config);
+        useConfigToMakeArkAlarmChannels(message,config,client);
         serverData[message.guild.name] = config;
         return new Result(true,serverData)
     }
@@ -124,30 +126,23 @@ function parseLogic (client,message,option) {
 
 }
 
-function createChannelsFromConfig(message,config,client) {
-  Object.keys(config).forEach(name => {
-    if (name && !findChannelByName(clusterName(name),client)) {
-      createChannel(message, clusterName(name), "text")
-    }
-  });
-}
-
 module.exports = class SetupCommand extends BaseCommand {
   constructor() {
     super('setup', 'setup', []);
   }
   async run (client,message){
       // Get serverData.json
+
       fs.readFile("./serverData.json",async (err,data)=>{
           if(err)throw err;
           // Parse and save the serverData;
           let serverData = JSON.parse(data);
 
-          let hasConfigFlag ,config, option;
-          hasConfigFlag = serverData?.[message.guild.name];
+          let clientHasConfig ,config, option;
+          clientHasConfig = serverData?.[message.guild.name];
           config = await fetchConfig(client);
 
-          if(hasConfigFlag){
+          if(clientHasConfig){
               if(config){
                   option = "configEdit"
               }else{

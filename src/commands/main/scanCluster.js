@@ -42,7 +42,7 @@ async function scanCluster (client, message){
         .setAuthor('Ark Alarm', 'https://i.imgur.com/zlHASmr.png', 'https://discord.js.org')
         .setDescription(`Here is your report on the cluster`)
         .setTimestamp()
-        .setFooter('Ark Alarm - Michael Walker - 2020', 'https://imgur.com/zlHASmr')
+        .setFooter('Ark Alarm - Michael Walker - 2022', 'https://imgur.com/zlHASmr')
         .setThumbnail('https://i.imgur.com/zlHASmr.png');
     serverData.forEach(({name,value,map},index)=>{
         if(index%2===0 && index !== 0){
@@ -61,7 +61,7 @@ async function scanCluster (client, message){
     });
     return embed;
     }catch(err){
-    //console.error(err)
+        console.log(err);
     }
 }
 
