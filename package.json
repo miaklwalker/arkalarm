@@ -20,12 +20,16 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@chakra-ui/react": "^2.2.1",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "another-random-package": "^1.0.2",
     "cors": "^2.8.5",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "express": "^4.18.1",
     "firebase": "^9.8.3",
+    "framer-motion": "^6.3.12",
     "gamedig": "^3.0.0",
     "ip": "^1.1.8"
   },
