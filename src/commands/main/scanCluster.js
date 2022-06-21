@@ -6,7 +6,7 @@ const filterPlayers = require("../../modules/functions/filterPlayer.js");
 
 
 async function getClusterInfo(message,api=Gamedig){
-    let cluster = createCluster(message);
+    let cluster = await createCluster(message);
     let clusterInfo = [];
     for(let server of cluster.servers) {
         try {

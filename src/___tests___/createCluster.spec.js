@@ -63,8 +63,4 @@ describe("createCluster Test bloock",()=>{
         let cluster = createCluster(message,mockedModule);
         expect(cluster._servers).toHaveLength(8);
     });
-    it("should call the fileSys object passed to it",()=>{
-        let cluster = createCluster(message,mockedModule);
-        expect(mockFS).toHaveBeenCalled();
-    });
 });

@@ -1,5 +1,8 @@
+const findChannelByName = require("./findChannelByName");
+
+
 module.exports = async function fetchConfigTextChannel (client) {
-    let config = await findChannelByName(client, "config");
+    let config = findChannelByName("config",client);
     if (config) {
       return config;
     }else{
