@@ -1,6 +1,7 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const fetchConfigTextChannel = require("../../modules/functions/fetchConfigTextChannel");
 const createChannel = require("../../modules/functions/createChannel");
+const createChannelsFromConfig = require('../../modules/functions/createChannelsFromConfig');
 const prodUrl = "https://jazzy-mousse-885ec4.netlify.app/?";
 const devUrl = "http://localhost:3000/?";
 const override = false;
@@ -75,6 +76,7 @@ module.exports = class SetupCommand extends BaseCommand {
     }else{     
         option = "makeConfigChannelandConfig";
     }
+    console.log(option);
     if(option === "makeConfigChannelandConfig"){
       this.makeConfig(client,message,config)
       .then(key=>{
@@ -86,6 +88,7 @@ module.exports = class SetupCommand extends BaseCommand {
       this.makeConfigChannel(message,makeMsg(baseUrl+await this.makeKey(message)));
     }
     if(option === "close"){
+      createChannelsFromConfig(message,serverData.data,client);
       configChannel.delete();
     }
   }

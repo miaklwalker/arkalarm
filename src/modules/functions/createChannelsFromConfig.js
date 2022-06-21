@@ -7,23 +7,17 @@ const clusterName = (config) => (`ark-alarm-${config
 }`);
 
 module.exports =function useConfigToMakeArkAlarmChannels(message,config,client) {
-    // here we are creating the channels from the config;
-    Object.keys(config).forEach(name => {
-      if (!findChannelByName(clusterName(name),client)) {
-        createChannel(message, clusterName(name), "text")
-      }
-    });
-    // here we clean up the old channels that are not in the config;
-    message.guild.channels.cache.forEach(channel => {
-        if(channel.type === "text" && channel.name.includes("ark-alarm")){
-          let cName = channel.name.replace("ark-alarm-","").replace("-"," ");
-          let inConfig = Object
-          .keys(config)
-          .map(name => name.toLowerCase() === cName.toLowerCase())
-          .includes(true);
-          if(!inConfig){
+    let validNames = Object.keys(config).map(name => clusterName(name));
+    let channels = message.guild.channels.cache;
+    channels.forEach(channel => {
+        if(channel.type === "text" && channel.name.includes("ark-alarm") && !validNames.includes(channel.name)){
             channel.delete();
-          }
+        }else if(channel.type === "text" && channel.name.includes("ark-alarm") && validNames.includes(channel.name)){
+            validNames.splice(validNames.indexOf(channel.name),1);
         }
     });
+    // valid names should now only contain channels that need to be created
+    validNames.forEach(name => {
+        createChannel(message, name, "text");
+    })
   }
