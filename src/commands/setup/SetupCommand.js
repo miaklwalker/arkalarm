@@ -76,7 +76,6 @@ module.exports = class SetupCommand extends BaseCommand {
     }else{     
         option = "makeConfigChannelandConfig";
     }
-    console.log(option);
     if(option === "makeConfigChannelandConfig"){
       this.makeConfig(client,message,config)
       .then(key=>{
