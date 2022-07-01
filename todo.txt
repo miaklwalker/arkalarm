@@ -1,0 +1,2 @@
+add back the use count functionality
+create a local cache to reduce read write to firebase and invalidate on setup
