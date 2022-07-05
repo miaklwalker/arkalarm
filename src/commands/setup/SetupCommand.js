@@ -3,7 +3,7 @@ const fetchConfigTextChannel = require("../../modules/functions/fetchConfigTextC
 const createChannel = require("../../modules/functions/createChannel");
 const createChannelsFromConfig = require('../../modules/functions/createChannelsFromConfig');
 const keys = require('../../modules/globals');
-const prodUrl = "https://jazzy-mousse-885ec4.netlify.app/?";
+const prodUrl = "https://arkalarm.net/?";
 const devUrl = "http://localhost:3000/?";
 const override = false;
 const baseUrl = process.env.NODE_ENV === "production" || override ? prodUrl : devUrl;
@@ -53,41 +53,34 @@ module.exports = class SetupCommand extends BaseCommand {
   }
   async makeKey (message) {
     let name = message.guild.name;
-    let key = await this.keyCrud.AddToDatabase(name);
-    return key;
+    return await this.keyCrud.AddToDatabase(name);
   }
   async makeConfigChannel(message,msg){
     let channel = await createChannel(message,"config","text");
     channel.send(msg);
   }
-  async run (client,message){
+  async run (client,message) {
     let serverName = message.guild.name;
     let serverData = await this.userCrud.getFromDatabase(serverName);
     let configChannel = await fetchConfigTextChannel(client);
-    let option;
-    if(serverData){
-      // the user has a config;
-      if(configChannel){
-        // the user has a config and a config channel;
+    let option = "makeConfigChannelAndConfig";
+    if (serverData) {
+      option = "makeConfigChannel";
+      if (configChannel) {
         option = "close";
-      }else{
-        // the user has a config but no config channel;
-        option = "makeConfigChannel";
       }
-    }else{     
-        option = "makeConfigChannelandConfig";
     }
-    if(option === "makeConfigChannelandConfig"){
+    if (option === "makeConfigChannelAndConfig") {
       this.makeConfig(client,message,config)
-      .then(key=>{
-        let msg = makeMsg(baseUrl+key);
-        this.makeConfigChannel(message,msg);
-      });
+          .then(key=>{
+            let msg = makeMsg(baseUrl+key);
+            this.makeConfigChannel(message,msg);
+          });
     }
-    if(option === "makeConfigChannel"){
-      this.makeConfigChannel(message,makeMsg(baseUrl+await this.makeKey(message)));
+    else if (option === "makeConfigChannel") {
+      await this.makeConfigChannel(message,makeMsg(baseUrl+await this.makeKey(message)));
     }
-    if(option === "close"){
+    else if (option === "close") {
       keys[serverName] = true;
       createChannelsFromConfig(message,serverData.data,client);
       configChannel.delete();
