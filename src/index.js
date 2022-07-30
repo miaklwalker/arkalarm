@@ -3,7 +3,7 @@ const { registerCommands, registerEvents } = require('./utils/registry');
 const config = require('../slappey.json');
 const dotenv = require("dotenv").config();
 const client = new Client();
-
+const {useCount} = require('./modules/functions/useCount');
 
 
 (async () => {
@@ -18,6 +18,9 @@ const client = new Client();
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
   await client.login(token);
+  console.log("ran")
+  await useCount("ArkAlarmTestServer","setup");
+
 
 })();
 

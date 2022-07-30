@@ -3,6 +3,7 @@ const fetchConfigTextChannel = require("../../modules/functions/fetchConfigTextC
 const createChannel = require("../../modules/functions/createChannel");
 const createChannelsFromConfig = require('../../modules/functions/createChannelsFromConfig');
 const keys = require('../../modules/globals');
+const {useCount} = require("../../modules/functions/useCount");
 const prodUrl = "https://arkalarm.net/?";
 const devUrl = "http://localhost:3000/?";
 const override = false;
@@ -63,6 +64,8 @@ module.exports = class SetupCommand extends BaseCommand {
     let serverName = message.guild.name;
     let serverData = await this.userCrud.getFromDatabase(serverName);
     let configChannel = await fetchConfigTextChannel(client);
+    let guildName = message.guild.name;
+    await useCount(guildName, "setup");
     let option = "makeConfigChannelAndConfig";
     if (serverData) {
       option = "makeConfigChannel";

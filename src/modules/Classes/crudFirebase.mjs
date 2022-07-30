@@ -11,7 +11,7 @@ import {
     updateDoc, 
     deleteDoc} 
     from "firebase/firestore/lite";
-    
+  
 export class FirebaseCrud {
     constructor(collectionName) {
         this.config = {
