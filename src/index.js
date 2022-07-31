@@ -18,10 +18,6 @@ const {useCount} = require('./modules/functions/useCount');
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
   await client.login(token);
-  console.log("ran")
-  await useCount("ArkAlarmTestServer","setup");
-
-
 })();
 
 
