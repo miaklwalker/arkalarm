@@ -13,10 +13,10 @@ if [ $? -eq 0 ]; then
 else
     echo "Project is not up to date"
     git pull origin master
-    rm -rf node_modules
+    #rm -rf node_modules
     echo "Node modules removed"
     echo "re installing node modules"
-    npm install
+    #npm install
     echo "Script finished"
 fi
 
