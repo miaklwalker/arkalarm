@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev node ./src/index.js",
+    "dev": "NODE_ENV=dev nodemon ./src/index.js",
     "start-server": "NODE_ENV=dev nodemon ./src/server.js",
     "test": "NODE_ENV=dev npx jest --coverage",
     "watchTest": "NODE_ENV=dev npx jest --watch",

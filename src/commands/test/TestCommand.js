@@ -2,28 +2,24 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 const fs = require("fs");
 const {getClusterName,removeItem,getClusterProperty} = require("../../modules/modules.js");
 
-
+let adminList = [
+    "miaklwalker#8366"
+]
 
 module.exports = class TestCommand extends BaseCommand {
   constructor() {
-    super('test', 'testing', []);
+    super('admin', 'testing', []);
   }
-
+  makeUserName(username, discriminator) {
+    return username + "#" + discriminator;
+  }
   async run(client, message, args) {
-    // message.reply("test")
-    // if(args[0] === "add"){
-    //   if(args[1] === "tribe"){
-    //     message.reply(args)
-    //   }else if(args[1] === "enemies"){
-    //     message.reply(args)
-    //   }else{
-    //     message.reply(args)
-    //     let message = `When using the ${args[0]} command please only use "tribe" or "enemy"`
-    //   }
-    // }else if(args[0] === "remove"){
-    //
-    // }
-
-
+    let user = message.author;
+    let userName = this.makeUserName(user.username, user.discriminator);
+    if (adminList.includes(userName)) {
+      let data = JSON.parse(fs.readFileSync("./useCount.json").toString());
+      let res = JSON.stringify(data,null,2);
+      message.channel.send(res);
+    }
   }
 };
