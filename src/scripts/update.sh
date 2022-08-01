@@ -9,13 +9,15 @@ git stash
 git fetch origin
 if [ $? -eq 0 ]; then
     echo "Project is up to date"
-    echo "Script finished starting the project"
+    echo "Script finished"
 else
     echo "Project is not up to date"
     git pull origin master
     rm -rf node_modules
+    echo "Node modules removed"
+    echo "re installing node modules"
     npm install
-    echo "Script finished starting the project"
+    echo "Script finished"
 fi
 
 
