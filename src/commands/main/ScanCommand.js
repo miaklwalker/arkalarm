@@ -6,7 +6,6 @@ module.exports = class ScanCommand extends BaseCommand {
     constructor() {
         super('', 'main', []);
     }
-
     async run(client, message, args) {
         try {
             await message.channel.send(
