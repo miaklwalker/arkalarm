@@ -6,12 +6,13 @@ import {
     getDocs,
     where,
     doc,
-    query, 
+    query,
     addDoc,
-    updateDoc, 
-    deleteDoc} 
+    updateDoc,
+    deleteDoc}
     from "firebase/firestore/lite";
-  
+import { getAuth, signInAnonymously } from "firebase/auth";
+
 export class FirebaseCrud {
     constructor(collectionName) {
         this.config = {

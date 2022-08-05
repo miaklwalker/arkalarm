@@ -4,6 +4,7 @@ const createChannel = require("../../modules/functions/createChannel");
 const createChannelsFromConfig = require('../../modules/functions/createChannelsFromConfig');
 const keys = require('../../modules/globals');
 const {useCount} = require("../../modules/functions/useCount");
+
 const prodUrl = "https://arkalarm.net/?";
 const devUrl = "http://localhost:3000/?";
 const override = false;
@@ -81,7 +82,7 @@ module.exports = class SetupCommand extends BaseCommand {
           });
     }
     else if (option === "makeConfigChannel") {
-      await this.makeConfigChannel(message,makeMsg(baseUrl+await this.makeKey(message)));
+      await this.makeConfigChannel(message,makeMsg(baseUrl + await this.makeKey(message)));
     }
     else if (option === "close") {
       keys[serverName] = true;
