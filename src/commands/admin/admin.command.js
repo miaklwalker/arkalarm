@@ -4,9 +4,10 @@ const fs = require("fs");
 let adminList = [
     "miaklwalker#8366"
 ]
-const version = "0.0.2";
+const version = "0.0.3";
 console.log("v " + version);
-module.exports = class TestCommand extends BaseCommand {
+
+module.exports = class AdminCommand extends BaseCommand {
     constructor() {
         super('admin', 'admin function', []);
     }
