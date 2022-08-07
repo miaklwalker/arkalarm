@@ -3,7 +3,6 @@ const { registerCommands, registerEvents } = require('./utils/registry');
 const config = require('../slappey.json');
 const dotenv = require("dotenv").config();
 const client = new Client();
-const {useCount} = require('./modules/functions/useCount');
 
 
 (async () => {
@@ -15,9 +14,13 @@ const {useCount} = require('./modules/functions/useCount');
   client.events = new Map();
   client.prefix = config.prefix;
 
+
   await registerCommands(client, '../commands');
   await registerEvents(client, '../events');
   await client.login(token);
 })();
+
+
+
 
 

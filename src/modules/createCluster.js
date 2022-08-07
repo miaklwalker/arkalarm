@@ -25,6 +25,6 @@ async function createCluster(message){
    cluster.config = config;
    Object.values(maps).forEach(cluster.addServer);
    return cluster;
-};
+}
 
 module.exports = createCluster;

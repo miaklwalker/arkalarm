@@ -4,6 +4,9 @@ const createChannel = require("../../modules/functions/createChannel");
 const createChannelsFromConfig = require('../../modules/functions/createChannelsFromConfig');
 const keys = require('../../modules/globals');
 const {useCount} = require("../../modules/functions/useCount");
+const generateToken = require('../../modules/functions/generateToken');
+
+
 
 const prodUrl = "https://arkalarm.net/?";
 const devUrl = "http://localhost:3000/?";
@@ -17,13 +20,13 @@ let config = {
     maps: {
       "The Island": "11111",
       "Scorched Earth": "",
-      Aberation: "",
+      "Aberation": "",
       "The Center": "",
-      Ragnorak: "",
-      Valguero: "",
+      "Ragnorak": "",
+      "Valguero": "",
       "Crystal Isle": "",
-      Extinction: "",
-      Genesis: ""
+      "Extinction": "",
+      "Genesis": ""
     },
     enemies: [],
     tribemates:[],
@@ -48,14 +51,14 @@ module.exports = class SetupCommand extends BaseCommand {
     this.keyCrud = new KeyCrud("Keys");
   }
   async makeConfig(client,message,config){
-    let name = message.guild.name;
-    let key = await this.keyCrud.AddToDatabase(name);
+    let key = this.makeKey(message)
     await this.userCrud.AddToDatabase(name,config);
     return key;
   }
   async makeKey (message) {
     let name = message.guild.name;
-    return await this.keyCrud.AddToDatabase(name);
+    let token = await generateToken(name);
+    return await this.keyCrud.AddToDatabase(name,token);
   }
   async makeConfigChannel(message,msg){
     let channel = await createChannel(message,"config","text");
